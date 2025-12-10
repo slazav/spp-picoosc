@@ -42,6 +42,9 @@ PicoOsc::cmd_help() const {
   "trig_get  -- get trigger parameters\n"
   "   Returns a line with four words: <src> <lvl> <dir> <del>.\n"
   "   If the trigger is not set returns 'undef' word.\n"
+  "bwlimiter <ch> <en> -- set 200kHz bandwidth limiter (4262 only)"
+  "   ch  -- select channel: A,B\n"
+  "   en  -- enable bandwidth limiter: 1,0\n"
   "block <ch> <npre> <npost> <dt> <file> -- record signal (block mode)\n"
   "   ch    -- channels to record: A,B,AB,BA, etc.\n"
   "   npre  -- number of pretrigger samples\n"
@@ -229,6 +232,14 @@ PicoOsc::cmd(const vector<string> & args){
          << trconf[0].lvl << " "
          << trconf[0].dir << " "
          << trconf[0].del << "\n";
+    return true;
+  }
+
+  // set bw limiter status
+  if (is_cmd(args, "bwlimiter")) {
+    if (args.size()!=3) throw Err()
+      << "Usage: bwlimiter <ch> <en>";
+    bwlimiter(args[1].c_str(), atoi(args[2].c_str()));
     return true;
   }
 

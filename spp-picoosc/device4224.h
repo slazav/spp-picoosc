@@ -217,6 +217,12 @@ class Pico4224 : public PicoOsc {
     if (res!=PICO_OK)  throw Err() << "SetSimpleTrigger error: " << pico_err(res);
   }
 
+  // set 200kHz bandwith limiter (only for 4262)
+  void bwlimiter(const char * chan, const bool enable){
+    int16_t res = ps4000SetBwFilter(h, str2chan(chan), enable);
+    if (res!=PICO_OK)  throw Err() << "SetBwFilter error: " << pico_err(res);
+  }
+
   // convert pico timebase to time step (in seconds): tbase2dt(tbase);
   float tbase2dt(uint32_t tbase){
     float dt;

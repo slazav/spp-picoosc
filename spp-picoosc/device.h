@@ -90,6 +90,9 @@ class PicoOsc{
   virtual void trig_set(const char * src, int16_t th, const char * dir,
                         uint32_t del, int16_t auto_del)=0;
 
+  // set 200kHz bandwith limiter (only for 4262)
+  virtual void bwlimiter(const char * chan, const bool enable)=0;
+
   // convert pico timebase to time step (in seconds): tbase2dt(tbase);
   virtual float tbase2dt(uint32_t tbase) = 0;
 
